@@ -1,0 +1,80 @@
+<div class="col-md-12" >
+  <div class="panel panel-primary">
+  <div class="panel-heading">Liste des contrats</div>
+  <div class="panel-body">
+  <div class="form-group">
+  <label for="">Mot clé</label>
+  <input type="text" [(ngModel)] = "motCle">   
+  <button class="btn btn-primary" (click)="chercher()">chercher</button>
+  </div>
+  <table  class="table table-striped">
+  <tr>
+  <th>ID</th>
+  <th>type</th>
+  <th>mission</th>
+  <!--<th><a  routerLink="/nouveau" >ajout</a></th>-->
+
+  <th><a (click)="open()" >
+
+    <img src="../../assets/plus.png" style="width: 25px; height: 25px"    data-toggle="modal" data-target="#exampleModal" ></a></th>
+  </tr>
+  <tr *ngFor="let c of listContrats"> 
+  <td> {{c.id}} </td>
+  <td> {{c.type}} </td>
+  <td> {{c.mission}} </td>
+  <td> 
+      <a (click)="taggelForm(c)">
+    <img src="../../assets/edit.png" style="width: 25px; height: 25px"  data-toggle="modal"  data-target="#exampleModal" >
+      </a>
+    <a (click)="delete(c)"> 
+    <img src="../../assets/delete.png" style="width: 25px; height: 25px">
+    </a>
+  </td>
+  </tr>
+  </table>
+  </div>
+  </div>
+  </div>
+
+ 
+  <!-- Modal -->
+  <div *ngIf="showFrom"  class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" width="300px" height="100px" >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header" style="background-color:#337AB7">
+          <h5 class="modal-title" id="exampleModalLabel" style="color:white" *ngIf="showsave">Nouveau Contrat</h5>
+          <h5 class="modal-title" id="exampleModalLabel" style="color:white" *ngIf="showupdate">Modifier le Contrat</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" style="color:white">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" >
+
+            <form class="col-lg-4 col-md-7  col-xs-10">
+
+                <div class="form-group ">
+                Type de la mission: <input style="width:500px" class="form-control" placeholder="Type" id="type" name="type"  [(ngModel)]="contra_type" >
+                </div>
+                
+                <div class="form-group ">
+                Nom de la mission: <input style="width:500px" class="form-control" placeholder="Ressource" id="mission" name="mission" [(ngModel)]="contra_mission" >
+                </div>
+                <div class="form-group">
+                  Commentaire:  <textarea style="width:500px" class="form-control" >                     
+                    </textarea>
+                </div>
+                <div  >  
+                    <button *ngIf="showsave"   type="submit" class="btn btn-primary" (click)=save()>Save</button>
+                    <button *ngIf="showupdate"  type="submit" class="btn btn-primary"  (click)=update()>update</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+                
+                   
+            </form>
+        </div>
+        <div class="modal-footer">
+            
+         </div>
+      </div>
+    </div>
+  </div>
